@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace EncreptionMethods
 {
-    internal class HillCipher
+    internal class HillCipherAlgorithm
     {
 
             int[,] keyMatrix;
             int matrixSize;
+            private const int AlphabetSize = 26;
 
-            public HillCipher(string key)
+
+        public HillCipherAlgorithm(string key)
             {
                 SetKey(key);
             }
@@ -74,7 +76,7 @@ namespace EncreptionMethods
                     {
                         result[i] += matrix[i, j] * vector[j];
                     }
-                    result[i] %= 26;
+                    result[i] %= AlphabetSize;
                 }
                 return result;
             }
@@ -86,7 +88,7 @@ namespace EncreptionMethods
 
             private char NumberToChar(int n)
             {
-                return (char)((n + 26) % 26 + 'A');
+                return (char)((n + AlphabetSize) % AlphabetSize + 'A');
             }
 
         public string Decrypt(string ciphertext)
@@ -115,7 +117,7 @@ namespace EncreptionMethods
 
         private int[,] InverseMatrix(int[,] matrix)
         {
-            int determinant = ModularInverse(Determinant(matrix, matrixSize), 26);
+            int determinant = ModularInverse(Determinant(matrix, matrixSize), AlphabetSize);
             int[,] adjugate = Adjugate(matrix);
 
             int[,] inverse = new int[matrixSize, matrixSize];
@@ -123,8 +125,8 @@ namespace EncreptionMethods
             {
                 for (int j = 0; j < matrixSize; j++)
                 {
-                    inverse[i, j] = (adjugate[i, j] * determinant) % 26;
-                    if (inverse[i, j] < 0) inverse[i, j] += 26;
+                    inverse[i, j] = (adjugate[i, j] * determinant) % AlphabetSize;
+                    if (inverse[i, j] < 0) inverse[i, j] += AlphabetSize;
                 }
             }
             return inverse;
@@ -188,8 +190,8 @@ namespace EncreptionMethods
                 {
                     GetCofactor(matrix, temp, i, j, matrixSize);
                     sign = ((i + j) % 2 == 0) ? 1 : -1;
-                    adj[j, i] = (sign * Determinant(temp, matrixSize - 1)) % 26;
-                    if (adj[j, i] < 0) adj[j, i] += 26;
+                    adj[j, i] = (sign * Determinant(temp, matrixSize - 1)) % AlphabetSize;
+                    if (adj[j, i] < 0) adj[j, i] += AlphabetSize;
                 }
             }
 
@@ -208,29 +210,5 @@ namespace EncreptionMethods
         }
 
     }
-        /*public class Program
-        {
-            public static void Main(string[] args)
-            {
-                Console.Write("Enter the plaintext: ");
-                string plaintext = Console.ReadLine().ToUpper();
-
-                Console.Write("Enter the key (length must be a perfect square): ");
-                string key = Console.ReadLine().ToUpper();
-
-                try
-                {
-                    HillCipher cipher = new HillCipher(key);
-                    string encrypted = cipher.Encrypt(plaintext);
-
-                    Console.WriteLine("Encrypted Text: " + encrypted);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error: " + ex.Message);
-                }
-            }
-        }
-
-    }*/
+       
 }

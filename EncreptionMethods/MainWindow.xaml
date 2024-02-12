@@ -13,6 +13,8 @@
             <TextBox x:Name="txtKey" Margin="0,0,0,10" Height="25" GotFocus="Txt_GotFocus" LostFocus="Txt_LostFocus"/>
             <Button x:Name="btnEncrypt" Margin="60,10,60,15" Click="btnEncrypt_Click" Height="25" Content="Encrypt"/>
             <Button x:Name="btnDecrypt" Margin="60,0,60,15" Click="btnDecrypt_Click" Height="25" Content="Decrypt"/>
+            <ProgressBar Visibility="{Binding IsProcessing, Converter={StaticResource BooleanToVisibilityConverter}}" IsIndeterminate="True"/>
+
             <TextBlock Margin="10,10"  Text="Result: Click on it for copy."/>
             <TextBlock x:Name="lblResult" Margin="20,10" TextWrapping="Wrap" MouseUp="LblResult_MouseUp" FontSize="20"/>
 

@@ -50,7 +50,7 @@ namespace EncreptionMethods
 
             try
             {
-                HillCipher cipher = new HillCipher(key);
+                HillCipherAlgorithm cipher = new HillCipherAlgorithm(key);
                 string result = isEncrypting ? cipher.Encrypt(inputText) : cipher.Decrypt(inputText);
                 lblResult.Text = result;
             }
