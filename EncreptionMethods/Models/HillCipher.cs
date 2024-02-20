@@ -16,7 +16,7 @@ namespace EncreptionMethods
 
         public HillCipherAlgorithm(string key)
         {
-            SetKey(key);
+            SetKey(key.Trim());
         }
 
         private void SetKey(string key)

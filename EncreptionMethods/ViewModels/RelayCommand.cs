@@ -3,21 +3,21 @@ using System.Windows.Input;
 
 namespace EncreptionMethods.ViewModels
 {
-    public class HillCipherRelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         private readonly Action _execute;
         private readonly Func<bool> _canExecute;
 
-        public HillCipherRelayCommand(Action execute, Func<bool> canExecute = null)
+        public RelayCommand(Action execute, Func<bool> canExecute = null)
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
+        public event EventHandler CanExecuteChanged;
 
-        public event EventHandler CanExecuteChanged
+        public void RaiseCanExecuteChanged()
         {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public bool CanExecute(object parameter) => _canExecute?.Invoke() ?? true;

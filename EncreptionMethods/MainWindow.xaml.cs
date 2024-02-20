@@ -28,7 +28,7 @@ namespace EncreptionMethods
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new HillCipherViewModel();
+            DataContext = new MainViewModel();
             /*txtPlaintext.Text = PlaintextHint;
             txtKey.Text = KeyHint;*/
         }

@@ -95,15 +95,22 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\CaesarCipherAlgorithm.cs" />
     <Compile Include="Models\HillCipher.cs" />
+    <Compile Include="Models\RsaAlgorithm.cs" />
+    <Compile Include="ViewModels\CaesarCipherViewModel.cs" />
     <Compile Include="ViewModels\HillCipherViewModel.cs" />
-    <Compile Include="ViewModels\HillCipherRelayCommand.cs" />
+    <Compile Include="ViewModels\IAlgorithmViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\RsaCipherViewModel.cs" />
+    <Compile Include="ViewModels\RsaVisibilityConverter.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -144,8 +151,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
