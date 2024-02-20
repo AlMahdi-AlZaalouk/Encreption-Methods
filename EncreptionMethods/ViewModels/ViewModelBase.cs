@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace EncreptionMethods.HillCipher.ViewModel
+namespace EncreptionMethods.ViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged
     {

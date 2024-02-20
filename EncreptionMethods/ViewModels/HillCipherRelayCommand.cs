@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace EncreptionMethods.HillCipher.ViewModel
+namespace EncreptionMethods.ViewModels
 {
-    public class RelayCommand : ICommand
+    public class HillCipherRelayCommand : ICommand
     {
         private readonly Action _execute;
         private readonly Func<bool> _canExecute;
 
-        public RelayCommand(Action execute, Func<bool> canExecute = null)
+        public HillCipherRelayCommand(Action execute, Func<bool> canExecute = null)
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;

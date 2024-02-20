@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EncreptionMethods.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,17 +24,18 @@ namespace EncreptionMethods
 
         private const string PlaintextHint = "Enter plaintext or ciphertext";
         private const string KeyHint = "Enter key (length must be a perfect square)";
+
         public MainWindow()
         {
             InitializeComponent();
-            txtPlaintext.Text = PlaintextHint;
-            txtKey.Text = KeyHint;
+            DataContext = new HillCipherViewModel();
+            /*txtPlaintext.Text = PlaintextHint;
+            txtKey.Text = KeyHint;*/
         }
-
 
         // The HillCipher class goes here (from the previous example)
 
-        private void btnEncrypt_Click(object sender, RoutedEventArgs e)
+       /* private void btnEncrypt_Click(object sender, RoutedEventArgs e)
         {
             ProcessText(isEncrypting: true);
         }
@@ -97,6 +99,6 @@ namespace EncreptionMethods
                 MessageBox.Show("Result copied to clipboard!");
             }
         }
-
+*/
     }
 }

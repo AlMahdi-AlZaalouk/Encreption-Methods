@@ -3,20 +3,43 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:EncreptionMethods"
+        xmlns:local="clr-namespace:EncreptionMethods.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:HillCipherViewModel />
+    </Window.DataContext>
     <Grid>
         <StackPanel Margin="30">
             <TextBlock Margin="20,30" TextAlignment="Center"  Text="Hill Cipher Algorithm" FontSize="20" FontWeight="Black"/>
-            <TextBox x:Name="txtPlaintext" Margin="0,0,0,10" Height="25" GotFocus="Txt_GotFocus" LostFocus="Txt_LostFocus"/>
-            <TextBox x:Name="txtKey" Margin="0,0,0,10" Height="25" GotFocus="Txt_GotFocus" LostFocus="Txt_LostFocus"/>
-            <Button x:Name="btnEncrypt" Margin="60,10,60,15" Click="btnEncrypt_Click" Height="25" Content="Encrypt"/>
-            <Button x:Name="btnDecrypt" Margin="60,0,60,15" Click="btnDecrypt_Click" Height="25" Content="Decrypt"/>
-            <ProgressBar Visibility="{Binding IsProcessing, Converter={StaticResource BooleanToVisibilityConverter}}" IsIndeterminate="True"/>
-
+            <TextBox x:Name="txtPlaintext" Margin="0,0,0,10" Height="25" 
+                     Text="{Binding InputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="txtKey" Margin="0,0,0,10" Height="25" 
+                     Text="{Binding Key, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button x:Name="btnEncrypt" Margin="60,10,60,15" Height="25" 
+                    Command="{Binding EncryptCommand}" Content="Encrypt"/>
+            <Button x:Name="btnDecrypt" Margin="60,0,60,15" Height="25" 
+                    Command="{Binding DecryptCommand}" Content="Decrypt"/>
+            <ProgressBar Visibility="{Binding IsProcessing, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                         IsIndeterminate="True" Height="4" Width="286"/>
             <TextBlock Margin="10,10"  Text="Result: Click on it for copy."/>
-            <TextBlock x:Name="lblResult" Margin="20,10" TextWrapping="Wrap" MouseUp="LblResult_MouseUp" FontSize="20"/>
+
+            <Button Content="{Binding Result}" Command="{Binding CopyResultCommand}" 
+                BorderThickness="0" Background="Transparent" Cursor="Hand"
+                Padding="0" Margin="0" HorizontalAlignment="Left">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
 
         </StackPanel>
     </Grid>

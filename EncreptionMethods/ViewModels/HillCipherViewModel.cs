@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using EncreptionMethods.HillCipher.ViewModel;
-using EncreptionMethods.HillCipher; // Ensure this using directive matches your model's namespace
 using System.Windows;
+using System.Windows.Input;
 
-namespace EncreptionMethods.HillCipher.ViewModel
+namespace EncreptionMethods.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public class HillCipherViewModel : ViewModelBase
     {
         private string _inputText;
         private string _key;
@@ -40,12 +38,22 @@ namespace EncreptionMethods.HillCipher.ViewModel
 
         public ICommand EncryptCommand { get; }
         public ICommand DecryptCommand { get; }
+        public ICommand CopyResultCommand { get; }
 
-        public MainViewModel()
+        public HillCipherViewModel()
         {
             IsProcessing = false;
-            EncryptCommand = new RelayCommand(async () => await ProcessText(true));
-            DecryptCommand = new RelayCommand(async () => await ProcessText(false));
+            EncryptCommand = new HillCipherRelayCommand(async () => await ProcessText(true));
+            DecryptCommand = new HillCipherRelayCommand(async () => await ProcessText(false));
+            CopyResultCommand = new HillCipherRelayCommand(CopyResultToClipboard);
+        }
+        private void CopyResultToClipboard()
+        {
+            if (!string.IsNullOrWhiteSpace(Result))
+            {
+                Clipboard.SetText(Result);
+                //MessageBox.Show("Result copied to clipboard!");
+            }
         }
         private async Task ProcessText(bool isEncrypting)
         {
@@ -53,10 +61,11 @@ namespace EncreptionMethods.HillCipher.ViewModel
 
             try
             {
-                await Task.Delay(1000); // Replace with actual encryption/decryption call
-
-                HillCipherAlgorithm cipher = new HillCipherAlgorithm(Key);
-                Result = isEncrypting ? cipher.Encrypt(InputText) : cipher.Decrypt(InputText);
+                string inputText = InputText.ToUpper();
+                string key = Key.ToUpper();
+                await Task.Delay(1000);
+                HillCipherAlgorithm cipher = new HillCipherAlgorithm(key);
+                Result =  isEncrypting ? cipher.Encrypt(inputText) : cipher.Decrypt(inputText);
             }
             catch (Exception ex)
             {
